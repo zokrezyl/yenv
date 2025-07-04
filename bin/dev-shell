@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
-repo_root=$(git rev-parse --show-toplevel)
+#repo_root=$(git rev-parse --show-toplevel)
 
-nix develop -c $repo_root/nix/flake-dev-shell
+# Resolve the absolute path to this script, following symlinks
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+REPO_ROOT="$(dirname "$(dirname "$SCRIPT_PATH")")"
+
+echo "working directory: $REPO_ROOT"
+
+nix develop "$REPO_ROOT/flakes/clang" -c "$REPO_ROOT/bin/flake-dev-shell"

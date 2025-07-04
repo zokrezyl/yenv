@@ -1,11 +1,15 @@
 {
-  description = "Flake root delegating to all subflakes in ./flakes";
+  description = "Multi-flake repo root";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs = {
+    clang.url = "path:flakes/clang";
+    #python.url = "path:flakes/python";
+    bin.url = "path:flakes/bin";
+    # add more if needed
+  };
 
-  inputsFrom = ./flakes;
-
-  outputs = inputs@{ self, ... }:
+  outputs = inputs@{ self, clang, bin, ... }:
+    # empty or export top-level outputs if desired
     {};
 }
 

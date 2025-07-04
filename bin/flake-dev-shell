@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+
+#this is the shell that should be started by flake so that envirment variables are pulled in
+#and exposed
+
+echo $HOME
+
+ENV_FILE=$HOME/.config/misc/env
+
+echo $ENV_FILE
+
+source $ENV_FILE
+
+$@
+

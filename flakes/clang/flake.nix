@@ -11,7 +11,7 @@
         dev-shell-bin = pkgs.writeShellApplication {
           name = "dev-shell";
           runtimeInputs = [ pkgs.bash ];
-          text = builtins.readFile ./bin/dev-shell;
+          text = builtins.readFile (self + ./bin/dev-shell);
         };
       };
     };

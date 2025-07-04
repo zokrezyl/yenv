@@ -31,7 +31,7 @@
             self.packages.x86_64-linux.dev-shell-bin
           ];
           shellHook = ''
-            exec dev-shell
+            exec ${self.packages.x86_64-linux.dev-shell-bin}/bin/dev-shell
           '';
         };
       };

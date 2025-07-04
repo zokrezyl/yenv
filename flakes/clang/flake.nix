@@ -20,6 +20,10 @@
             pkgs.cmake
             pkgs.python314
           ];
+          shellHook = ''
+            exec ./bin/dev-shell
+          '';
+
         };
       };
     };

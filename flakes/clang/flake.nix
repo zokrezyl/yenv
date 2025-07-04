@@ -1,21 +1,12 @@
 {
   description = "Clang + libc++ + CMake dev shell";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    bin-scripts.url = "path:../bin";
+  };
 
-  outputs = { self, nixpkgs }: {
-    packages = {
-      x86_64-linux = let
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-      in {
-        dev-shell-bin = pkgs.writeShellApplication {
-          name = "dev-shell";
-          runtimeInputs = [ pkgs.bash ];
-          text = builtins.readFile (self + ./bin/dev-shell);
-        };
-      };
-    };
-
+  outputs = { self, nixpkgs, bin-scripts }: {
     devShells = {
       x86_64-linux = let
         pkgs = import nixpkgs { system = "x86_64-linux"; };
@@ -28,10 +19,10 @@
             llvm.lld
             pkgs.cmake
             pkgs.python314
-            self.packages.x86_64-linux.dev-shell-bin
+            bin-scripts.packages.x86_64-linux.bin-scripts
           ];
           shellHook = ''
-            exec ${self.packages.x86_64-linux.dev-shell-bin}/bin/dev-shell
+            exec ${bin-scripts.packages.x86_64-linux.bin-scripts}/bin/dev-shell
           '';
         };
       };
